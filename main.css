@@ -1,0 +1,8 @@
+.page-body {
+    display: flex;
+    align-items: center;
+    max-width: 1051px;
+    min-width: 375px;
+    overflow-y: scroll;
+    background: #E5E5E5;
+}
