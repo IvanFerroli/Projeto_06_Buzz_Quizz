@@ -1,0 +1,20 @@
+body, html {
+    background: #ebebeb;
+    font-family: 'Roboto', sans-serif;
+} 
+
+@media (max-width: 800px) {
+    .new-quiz-container,.page-middle-body{
+        width: 340px;
+        margin-left: 18px;
+        margin-right: 18px;
+    }
+}
+
+/* @media (max-width: 900px) {
+    .main-middle {
+        width: 340px;
+        margin-left: 18px;
+        margin-right: 18px;
+    }
+} */

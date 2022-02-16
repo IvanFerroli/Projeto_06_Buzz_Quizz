@@ -1,8 +1,70 @@
-.page-body {
+.main-upper {
     display: flex;
-    align-items: center;
+    justify-content: center;
+}
+
+.main-middle {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 77px;
+}
+
+.page-upper-body {
+    display: flex;
+    width: 1051px;
+    height: fit-content;
     max-width: 1051px;
     min-width: 375px;
-    overflow-y: scroll;
-    background: #E5E5E5;
+}
+
+.page-middle-body {
+    margin-top: 77px;
+    display: flex;
+    height: 375px;
+    max-height: 375px;
+    width: 1051px;
+    min-width: 375px;
+}
+
+.new-quiz-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 100px;
+    height: 181px;
+    width: 1051px;
+    border: 1px dashed #D5D5D5;
+    box-sizing: border-box;
+    border-radius: 5px;
+}
+
+.create-quiz {
+    margin-top: 40px;
+    height: 40px;
+    width: 151px;
+    background: #FAFAFA;
+    border: 1px dashed #EC362D;
+    box-sizing: border-box;
+    border-radius: 50px;
+    font-size: 21px;
+    font-family: 'Roboto', sans-serif;
+}
+
+.first-quiz-message {
+    margin-top: 30px;
+    width: 270px;
+    height: 150px;
+    font-size: 20px;
+    text-align: center;
+    color: #B9B9B9;
+}
+
+.quizzes {
+    height: fit-content;
+    width: 100vw;
+    font-size: 20px;
+    color: #000000;
+}
+
+.all-quizzes {
+    margin-bottom: 5px;
 }
