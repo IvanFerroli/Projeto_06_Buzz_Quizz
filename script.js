@@ -3,6 +3,7 @@
 //<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 let indexAnswer = 0;
 let indexScroll = 0;
+
 function loadQuiz(){
     const request = axios.get('https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes');
     request.then((response) => {
@@ -91,3 +92,17 @@ function renderSingleAnswer(question, object){
     }
     return renderSingle;
 }
+
+
+// Áre de Guerra. Cuidado! O que tem abaixo está tudo errado. Você foi avisado.
+
+
+function insertSecondPage() {
+    let currentPage = document.querySelector('.second-page');
+    let lastPage = document.querySelector('.first-page');
+    if (lastPage.style.display !== 'none') {    
+        currentPage.style.display = 'block';
+        lastPage.style.display = 'none';
+    }
+}
+

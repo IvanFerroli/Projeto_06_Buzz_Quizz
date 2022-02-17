@@ -1,3 +1,9 @@
+/* --------------------------- First Page --------------------------- */
+
+.first-page {
+    display: block;
+}
+
 .main-upper {
     display: flex;
     justify-content: center;
@@ -67,4 +73,17 @@
 
 .all-quizzes {
     margin-bottom: 5px;
+}
+
+/* --------------------------- Second Page --------------------------- */
+
+.second-page {
+    max-width: 1051px;
+    display: flex;
+    align-items: center;
+    position: absolute;
+    display: none;
+    margin-left: ;
+    margin-top: 77px;
+    background-color: aqua;
 }
