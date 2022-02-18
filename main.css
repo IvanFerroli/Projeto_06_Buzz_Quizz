@@ -77,13 +77,18 @@
 
 /* --------------------------- Second Page --------------------------- */
 
-.second-page {
-    max-width: 1051px;
-    display: flex;
-    align-items: center;
-    position: absolute;
+.main-2 {
     display: none;
-    margin-left: ;
-    margin-top: 77px;
+}
+.second-page{
+    margin-top: 300px;
+    display: flex;
+    justify-content: center;
     background-color: aqua;
+}
+
+/* --------------------------- Third Page --------------------------- */
+
+.third-page {
+    display: none;
 }
