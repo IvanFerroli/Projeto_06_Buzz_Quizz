@@ -78,12 +78,20 @@
 /* --------------------------- Second Page --------------------------- */
 
 .second-page {
-    max-width: 1051px;
+    width: 100%;
+    height: calc(100% - 70px);
     display: flex;
     align-items: center;
     position: absolute;
+    justify-content: center;
     display: none;
-    margin-left: ;
-    margin-top: 77px;
+    top: 70px;
     background-color: aqua;
+}
+
+.quiz-info-list {
+    left: 25vw;
+    background-color: red;
+    width: 50vw;
+    height: 300px;
 }
