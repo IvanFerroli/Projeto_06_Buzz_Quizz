@@ -3,6 +3,7 @@
 //<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 let indexAnswer = 0;
 let indexScroll = 0;
+let userAnswers = [];
 let quizCreatedTitle = null;
 let quizCreatedURL = null;
 let quizCreatedNumberOfQuestions = null;
@@ -13,6 +14,7 @@ let quizCorrectNumOfQuestions = null;
 let quizCorrectNumOfLevels = null;
 
 function loadQuiz(){
+    document.querySelector('.main').innerHTML = '<section class="page-body"></section>';
     const request = axios.get('https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes');
     request.then((response) => {
         const quizes = document.querySelector('.page-body');
@@ -20,7 +22,7 @@ function loadQuiz(){
             quizes.innerHTML += `
             <div id='${response.data[i].id}' class='single-quiz' onclick='renderSingleQuiz(this);'>
                 <div class='overlap'></div>
-                <div class='thumb-quiz'><img src='${response.data[i].image}'></div>
+                <div class='thumb-quiz'><img src='${response.data[i].image}' alt='Imagem não carregada.'></div>
                 <div class='title-quiz'><p>${response.data[i].title}</p></div>    
             </div>`;
         }
@@ -38,17 +40,18 @@ function renderSingleQuiz(object){
         main.innerHTML = '';
         main.innerHTML = `<div class='image-single-quiz'>
             <div class='overlap-banner-quiz'></div>
-            <img src='${response.data.image}'>
-            <div class='quiz-title'>${response.data.title}</div>
-        </div>`;
+            <img src='${response.data.image}' alt='Imagem não carregada.'>
+            <span class='quiz-title'>${response.data.title}</span>
+        </div><div class='main-container-questions'>`;
         for(let i in questions){
-            main.innerHTML += `
-                <div class='quiz-question'>${questions[i].title}</div>
+            main.innerHTML += `<div class='subcontainer-question'>
+                <div class='quiz-question'><p>${questions[i].title}</p></div>
                 <div class='container-answers'>
                     <div class='answers-row'>${renderSingleAnswer(questions[i], object)}</div>
-                </div>`;
+                </div></div>`;
             document.querySelectorAll('.quiz-question')[i].style.background = questions[i].color;
         }
+        main.innerHTML += `</div>`;
     }).catch((error) => {
         console.log(error);
     });
@@ -59,21 +62,39 @@ function isCorrect(object, id){
     const request = axios.get(`https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes/${id}`);
     request.then((response) => {
         const questions = response.data.questions;
+        const levels = response.data.levels;
         const answers = getAnswers(questions);
         for(let i in answers){
-            if(answer === answers[i].text){
-                if(answers[i].isCorrectAnswer){
-                    //colocar as configs de css pra resposta certa aqui
-                    indexScroll += answers.length;
-                    console.log('correto');
-                    setTimeout(() => {
-                        document.querySelector(`#answer-${indexScroll}`).scrollIntoView();
-                        //falta colocar um tratamento aqui
-                    }, 2000);
-                }else{
-                    //colocar as configs de css pra resposta errada aqui 
+            for(let j in answers[i]){
+                if(answer === answers[i][j].text){
+                    if(answers[i][j].isCorrectAnswer){
+                        indexScroll += answers.length;
+                        setTimeout(() => {
+                            const selector = document.querySelector(`#answer-${indexScroll}`);
+                            if(selector !== undefined){
+                                selector.scrollIntoView();
+                            }
+                        }, 2000);
+                        removeClickEvent(object.parentNode);
+                        correctAnswer(object.parentNode, object);
+                    }else{
+                        setTimeout(() => {
+                            const selector = document.querySelector(`#answer-${indexScroll}`);
+                            if(selector !== undefined){
+                                selector.scrollIntoView();
+                            }
+                        }, 2000);
+                        removeClickEvent(object.parentNode);
+                        wrongAnswers(object.parentNode, answers[i], object.id);
+                    }
+                    userAnswers.push(answers[i][j].isCorrectAnswer);
                 }
             }
+        }
+        console.log(userAnswers);
+        if(userAnswers.length === questions.length){
+            console.log('teste');
+            endQuiz(userAnswers, questions.length, levels);
         }
     }).catch((error) => {
         console.log(error);
@@ -81,9 +102,9 @@ function isCorrect(object, id){
 }
 
 function getAnswers(questionAnswers){
-    let answers={};
+    let answers = {};
     for(let i in questionAnswers){
-        answers = questionAnswers[i].answers;
+        answers[i] = questionAnswers[i].answers;
     }
     return answers;
 }
@@ -91,14 +112,115 @@ function getAnswers(questionAnswers){
 function renderSingleAnswer(question, object){
     let renderSingle = '';
     for(let j in question.answers){
+        let aux = parseInt(j);
+        if((question.answers.length%2 === 0) && (question.answers.length > 2)){
+            if(aux === (question.answers.length/2)){
+                renderSingle += `</div><div class='answers-row'>`;
+            }
+        }
         renderSingle += `
         <div class='single-answer' onclick='isCorrect(this, ${object.id});' id='answer-${indexAnswer}'>
-            <img src='${question.answers[j].image}'>
+            <img src='${question.answers[j].image}' alt='Imagem não carregada.'>
             <div class='title-answer'>${question.answers[j].text}</div>
         </div>`;
         indexAnswer++;
     }
     return renderSingle;
+}
+
+function auxRenderSingleAnswer(renderSingle){
+    for(let j in question.answers){
+        renderSingle += `
+        <div class='single-answer' onclick='isCorrect(this, ${object.id});' id='answer-${indexAnswer}'>
+            <img src='${question.answers[j].image}' alt='Imagem não carregada.'>
+            <div class='title-answer'>${question.answers[j].text}</div>
+        </div>`;
+        indexAnswer++;
+    }
+}
+
+function removeClickEvent(parentObject){
+    const children = parentObject.children;
+    for(let i = 0; i < children.length; i++){
+        children[i].removeAttribute('onclick');
+    }
+}
+
+function correctAnswer(parentObject, object){
+    const children = parentObject.children;
+    for(let i = 0; i < children.length; i++){
+        if(children[i].id !== object.id){
+            children[i].classList.add('wrong-answer');
+        }else{
+            object.classList.add('correct-answer');
+        }
+    }
+}
+
+function wrongAnswers(parentObject, answers, objectId){
+    const children = parentObject.children;
+    let answerOptions = [];
+    for(let i=0; i < children.length; i++){
+        answerOptions.push(document.querySelector(`#${children[i].id} > .title-answer`).innerHTML);
+    }
+    for(let i in answers){
+        if(children[i].id !== objectId){
+            children[i].style.opacity = '0.6';
+        }
+        for(let j=0; j < answerOptions.length; j++){
+            if(answerOptions[j] === answers[i].text){
+                if(answers[i].isCorrectAnswer){
+                    children[j].style.color = 'green';
+                }else{
+                    children[j].style.color = 'red';
+                }
+            }
+        }
+    }
+}
+
+function endQuiz(optionAnswers, questionsLength, levels){
+    let pontuation = 0;
+    let userLevel = {'image': '', 'text': '', 'title': ''}; 
+    for(let i = 0; i < optionAnswers.length; i++){
+        if(optionAnswers[i]){
+            pontuation++;
+        }
+    }
+    const score = (Math.ceil(pontuation/questionsLength))*100;
+    console.log(`pontuação: ${score}`);
+    for(let i in levels){
+        if(score >= levels[i].minValue){
+            userLevel = levels[i];
+        }
+    }
+    renderCardEndQuiz(score, userLevel);
+}
+
+function renderCardEndQuiz(score, userLevel){
+    const main = document.querySelector('.main');
+    setTimeout(() => {
+    main.innerHTML += `<section class='level-user-card'>
+        <div class='title-level'><p>${score}% de acertos: ${userLevel.title}</p></div>
+        <div class='img-level'><img src='${userLevel.image}' alt='Imagem não carregada.'></div>
+        <div class='text-level'><p>${userLevel.text}</p></div>
+    </section>
+    <div class='buttons-quiz-page'>
+        <div class='reset-button'><button onclick='restartQuiz(this);' value='${2245}'>Reiniciar quiz</button></div>
+        <div class='back-home-button'><button onclick='backHome();'>Voltar pra Home</button></div></div>`
+    document.querySelector('.text-level').scrollIntoView();
+    }, 2000)    
+}
+
+function restartQuiz(object){
+    const obj = {'id': object.value};
+    document.querySelector('.main').innerHTML = '';
+    renderSingleQuiz(obj);
+}
+
+function backHome(){
+    document.querySelector('.main').innerHTML = '';
+    loadQuiz();
 }
 
 
