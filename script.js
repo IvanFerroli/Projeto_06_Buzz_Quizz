@@ -4,14 +4,25 @@
 let indexAnswer = 0;
 let indexScroll = 0;
 let userAnswers = [];
-let quizCreatedTitle = null;
-let quizCreatedURL = null;
-let quizCreatedNumberOfQuestions = null;
-let quizCreatedNumberOfLevels = null;
-let quizCorrectTitle = null;
-let quizCorrectURL = null;
-let quizCorrectNumOfQuestions = null;
-let quizCorrectNumOfLevels = null;
+let quizCreatedTitle1, quizCreatedURL1, quizCreatedNumberOfQuestions1, quizCreatedNumOfLevels1 = null;
+let quizCreatedTitle2, quizCreatedURL2, quizCreatedNumberOfQuestions2, quizCreatedNumOfLevels2 = null;
+let quizCreatedTitle3, quizCreatedURL3, quizCreatedNumberOfQuestions3, quizCreatedNumOfLevels3 = null;
+let quizCorrectTitle1, quizCorrectURL1, quizCorrectNumOfQuestions1, quizCorrectNumOfLevels1 = null;
+let quizCorrectTitle2, quizCorrectURL2, quizCorrectNumOfQuestions2, quizCorrectNumOfLevels2 = null;
+let quizCorrectTitle3, quizCorrectURL3, quizCorrectNumOfQuestions3, quizCorrectNumOfLevels3 = null;
+let questionText1, questionBackground1, questionCorrect1, questionImageURL1 = null;
+let questionText2, questionBackground2, questionCorrect2, questionImageURL2 = null;
+let questionText3, questionBackground3, questionCorrect3, questionImageURL3 = null;
+let questionCorrectText1, questionCorrectBackground1, questionCorrectAnswer1, questionCorrectImageURL1 = null;
+let questionCorrectText2, questionCorrectBackground2, questionCorrectAnswer2, questionCorrectImageURL2 = null;
+let questionCorrectText3, questionCorrectBackground3, questionCorrectAnswer3, questionCorrectImageURL3 = null;
+let questionIncorrect11, questionIncorrect12, questionIncorrect13 = null;
+let questionIncorrect21, questionIncorrect22, questionIncorrect23 = null;
+let questionIncorrect31, questionIncorrect32, questionIncorrect33 = null;
+let questionIncorrectURL11, questionIncorrectURL12, questionIncorrectURL13 = null;
+let questionIncorrectURL21, questionIncorrectURL22, questionIncorrectURL23 = null;
+let questionIncorrectURL31, questionIncorrectURL32, questionIncorrectURL33 = null;
+let questionIncorrectCorrect1, questionIncorrectCorrect2, questionIncorrectCorrect3 = null;
 
 function loadQuiz(){
     document.querySelector('.main').innerHTML = '<section class="page-body"></section>';
@@ -226,7 +237,7 @@ function backHome(){
 
 // Áre de Guerra. Cuidado! O que tem abaixo está tudo errado. Você foi avisado.
 
-//Botão: Inicia a criação do primeiro Quiz
+// Botão: Inicia a criação do primeiro Quiz
 
 function insertSecondPage() {
     let currentPage = document.querySelector('.main-2');
@@ -237,8 +248,7 @@ function insertSecondPage() {
     }
 } 
 
-//Inicia criação de um Quiz
-
+// Inicia criação de um Quiz (Adiciona Informações Básicas do Quiz)
 
 function getQuizTitle (quizCreatedTitle) {
     quizCreatedTitle = document.querySelector('.quiz-title').value;
@@ -284,7 +294,9 @@ function getNumberOfLevels (quizCreatedNumberOfLevels) {
     }
 }
 
-function getQuizInfo () {
+// Botão: Obtém informações adicionadas nos inputs do quiz, e pula para terceira página (Perguntas do Quiz)
+
+function getQuizBasicInfo () {
     getQuizTitle();
     getQuizURL();
     getNumberOfQuestions();
@@ -300,3 +312,221 @@ function getQuizInfo () {
     }
 }
 
+// Criação das perguntas do Quiz
+
+function getQuestionText1 (questionText1) {
+    questionText1 = document.querySelector('.first-quiz-text').value;
+    if ((questionText1 === null) || (questionText1.length < 20)) {
+        alert("Por favor, insira uma pergunta que contenha pelo menos 20 caracteres.")
+        questionCorrectText1 = false;
+    } else {
+        questionCorrectText1 = true;
+    }
+}
+
+function getQuestionBackground1 (questionBackground1) {
+    questionBackground1 = document.querySelector('.first-question-background').value;
+    if ((questionBackground1 !== null) && (questionBackground1.startsWith("#")) && ((questionBackground1.length === 7))) {
+        questionCorrectBackground1 = true;
+    } else {
+        alert("Por favor, insira uma coloração hexadecimal válida.");
+        questionCorrectBackground1 = false;
+    }
+}
+
+function getQuestionCorrectAnswer1 (questionCorrect1) {
+    questionCorrect1 = document.querySelector('.first-quiz-correct-answer').value;
+    if (questionCorrect1 === null) {
+        alert("Por favor, preencha o campo de resposta.")
+        questionCorrectAnswer1 = false;
+    } else {
+        questionCorrectAnswer1 = true;
+    }
+}
+
+function getQuestionImageURL1 (questionImageURL1) {
+    questionImageURL1 = document.querySelector('.first-quiz-image-URL').value;
+    if ((questionImageURL1 !== null) &&  (questionImageURL1.startsWith("https://") || questionImageURL1.startsWith("http://"))) {
+        questionCorrectImageURL1 = true;
+    } else {
+        alert("Por favor, insira uma URL válida para a imagem da questão.");
+        questionCorrectImageURL1 = false;
+    }
+}
+
+function getQuestionIncorrectAnswers1 (questionIncorrect11, questionIncorrect12, questionIncorrect13, questionIncorrectURL11, questionIncorrectURL12, questionIncorrectURL13) {
+    questionIncorrect11 = document.querySelector('.first-quiz-incorrect-answer-1').value;
+    questionIncorrect12 = document.querySelector('.first-quiz-incorrect-answer-2').value;
+    questionIncorrect13 = document.querySelector('.first-quiz-incorrect-answer-3').value;
+    questionIncorrectURL11 = document.querySelector('.first-quiz-incorrect-URL-1').value;
+    questionIncorrectURL12 = document.querySelector('.first-quiz-incorrect-URL-2').value;
+    questionIncorrectURL13 = document.querySelector('.first-quiz-incorrect-URL-3').value;
+
+    if ((questionIncorrectURL11 !== null) &&  (questionIncorrectURL11.startsWith("https://") || questionIncorrectURL11.startsWith("http://"))) {
+        if ((questionIncorrectURL12 === null) || (questionIncorrectURL12.startsWith("https://") || questionIncorrectURL12.startsWith("http://"))) {
+            if ((questionIncorrectURL13 === null) || (questionIncorrectURL13.startsWith("https://") || questionIncorrectURL13.startsWith("http://"))) {
+                if (questionIncorrect11 !== null) {
+                    questionIncorrectCorrect1 = true;
+                } else {
+                    alert("Por favor, insira pelo menos uma resposta incorreta e sua respectiva URL de imagem.")
+                    questionIncorrectCorrect1 = false;
+                }
+            }
+        }
+    }
+}
+
+function makeSecondQuestion () {
+    secondQuestion = document.querySelector('.second-question-info').style.display = 'block';
+}
+
+
+function getQuestionText2 (questionText2) {
+    questionText2 = document.querySelector('.second-quiz-text').value;
+    if ((questionText2 === null) || (questionText2.length < 20)) {
+        alert("Por favor, insira uma pergunta que contenha pelo menos 20 caracteres.")
+        questionCorrectText2 = false;
+    } else {
+        questionCorrectText2 = true;
+    }
+}
+
+function getQuestionBackground2 (questionBackground2) {
+    questionBackground2 = document.querySelector('.second-question-background').value;
+    if ((questionBackground2 !== null) && (questionBackground2.startsWith("#")) && ((questionBackground2.length === 7))) {
+        questionCorrectBackground2 = true;
+    } else {
+        alert("Por favor, insira uma coloração hexadecimal válida.");
+        questionCorrectBackground2 = false;
+    }
+}
+
+function getQuestionCorrectAnswer2 (questionCorrect2) {
+    questionCorrect2 = document.querySelector('.second-quiz-correct-answer').value;
+    if (questionCorrect2 === null) {
+        alert("Por favor, preencha o campo de resposta.")
+        questionCorrectAnswer2 = false;
+    } else {
+        questionCorrectAnswer2 = true;
+    }
+}
+
+function getQuestionImageURL2 (questionImageURL2) {
+    questionImageURL2 = document.querySelector('.second-quiz-image-URL').value;
+    if ((questionImageURL2 !== null) &&  (questionImageURL2.startsWith("https://") || questionImageURL2.startsWith("http://"))) {
+        questionCorrectImageURL2 = true;
+    } else {
+        alert("Por favor, insira uma URL válida para a imagem da questão.");
+        questionCorrectImageURL2 = false;
+    }
+}
+
+function getQuestionIncorrectAnswers2 (questionIncorrect21, questionIncorrect22, questionIncorrect23, questionIncorrectURL21, questionIncorrectURL22, questionIncorrectURL23) {
+    questionIncorrect21 = document.querySelector('.second-quiz-incorrect-answer-1').value;
+    questionIncorrect22 = document.querySelector('.second-quiz-incorrect-answer-2').value;
+    questionIncorrect23 = document.querySelector('.second-quiz-incorrect-answer-3').value;
+    questionIncorrectURL21 = document.querySelector('.second-quiz-incorrect-URL-1').value;
+    questionIncorrectURL22 = document.querySelector('.second-quiz-incorrect-URL-2').value;
+    questionIncorrectURL23 = document.querySelector('.second-quiz-incorrect-URL-3').value;
+
+    if ((questionIncorrectURL21 !== null) &&  (questionIncorrectURL21.startsWith("https://") || questionIncorrectURL21.startsWith("http://"))) {
+        if ((questionIncorrectURL22 === null) || (questionIncorrectURL22.startsWith("https://") || questionIncorrectURL22.startsWith("http://"))) {
+            if ((questionIncorrectURL23 === null) || (questionIncorrectURL23.startsWith("https://") || questionIncorrectURL23.startsWith("http://"))) {
+                if (questionIncorrect21 !== null) {
+                    questionIncorrectCorrect2 = true;
+                } else {
+                    alert("Por favor, insira pelo menos uma resposta incorreta e sua respectiva URL de imagem.")
+                    questionIncorrectCorrect2 = false;
+                }
+            }
+        }
+    }
+}
+
+function makeThirdQuestion () {
+    thirdQuestion = document.querySelector('.third-question-info').style.display = 'block';
+}
+
+function getQuestionText3 (questionText3) {
+    questionText3 = document.querySelector('.third-quiz-text').value;
+    if ((questionText3 === null) || (questionText3.length < 20)) {
+        alert("Por favor, insira uma pergunta que contenha pelo menos 20 caracteres.")
+        questionCorrectText3 = false;
+    } else {
+        questionCorrectText3 = true;
+    }
+}
+
+function getQuestionBackground3 (questionBackground3) {
+    questionBackground3 = document.querySelector('.third-question-background').value;
+    if ((questionBackground3 !== null) && (questionBackground3.startsWith("#")) && ((questionBackground3.length === 7))) {
+        questionCorrectBackground3 = true;
+    } else {
+        alert("Por favor, insira uma coloração hexadecimal válida.");
+        questionCorrectBackground3 = false;
+    }
+}
+
+function getQuestionCorrectAnswer3 (questionCorrect3) {
+    questionCorrect3 = document.querySelector('.third-quiz-correct-answer').value;
+    if (questionCorrect3 === null) {
+        alert("Por favor, preencha o campo de resposta.")
+        questionCorrectAnswer3 = false;
+    } else {
+        questionCorrectAnswer3 = true;
+    }
+}
+
+function getQuestionImageURL3 (questionImageURL3) {
+    questionImageURL3 = document.querySelector('.third-quiz-image-URL').value;
+    if ((questionImageURL3 !== null) &&  (questionImageURL3.startsWith("https://") || questionImageURL3.startsWith("http://"))) {
+        questionCorrectImageURL3 = true;
+    } else {
+        alert("Por favor, insira uma URL válida para a imagem da questão.");
+        questionCorrectImageURL3 = false;
+    }
+}
+
+function getQuestionIncorrectAnswers3 (questionIncorrect31, questionIncorrect32, questionIncorrect33, questionIncorrectURL31, questionIncorrectURL32, questionIncorrectURL33) {
+    questionIncorrect31 = document.querySelector('.third-quiz-incorrect-answer-1').value;
+    questionIncorrect32 = document.querySelector('.third-quiz-incorrect-answer-2').value;
+    questionIncorrect33 = document.querySelector('.third-quiz-incorrect-answer-3').value;
+    questionIncorrectURL31 = document.querySelector('.third-quiz-incorrect-URL-1').value;
+    questionIncorrectURL32 = document.querySelector('.third-quiz-incorrect-URL-2').value;
+    questionIncorrectURL33 = document.querySelector('.third-quiz-incorrect-URL-3').value;
+
+    if ((questionIncorrectURL31 !== null) &&  (questionIncorrectURL31.startsWith("https://") || questionIncorrectURL31.startsWith("http://"))) {
+        if ((questionIncorrectURL32 === null) || (questionIncorrectURL32.startsWith("https://") || questionIncorrectURL32.startsWith("http://"))) {
+            if ((questionIncorrectURL33 === null) || (questionIncorrectURL33.startsWith("https://") || questionIncorrectURL33.startsWith("http://"))) {
+                if (questionIncorrect31 !== null) {
+                    questionIncorrectCorrect3 = true;
+                } else {
+                    alert("Por favor, insira pelo menos uma resposta incorreta e sua respectiva URL de imagem.")
+                    questionIncorrectCorrect3 = false;
+                }
+            }
+        }
+    }
+}
+
+//Botão: Adquire perguntas, e pula para a quarta página (Criação de Níveis)
+
+function getQuestionsInfo () {
+    getQuestionText1(), getQuestionText2(), getQuestionText3;
+    getQuestionBackground1(), getQuestionBackground2(), getQuestionBackground3();
+    getQuestionCorrectAnswer1(), getQuestionCorrectAnswer2(), getQuestionCorrectAnswer3();
+    getQuestionImageURL1(), getQuestionImageURL2(), getQuestionImageURL3();
+    getQuestionIncorrectAnswers1(), getQuestionIncorrectAnswers2(), getQuestionIncorrectAnswers3();
+
+    if ((questionCorrectText1 === true) && (questionCorrectBackground1 === true) && (questionCorrectAnswer1 === true) && (questionCorrectImageURL1 === true) &&
+    (QuestionCorrectText2 === true) && (questionCorrectBackground2 === true) && (questionCorrectAnswer2 === true) && (questionCorrectImageURL2 === true) &&
+    (questionCorrectText3 === true) && (questionCorrectBackground3 === true) && (questionCorrectAnswer3 === true) && (questionCorrectImageURL3 === true) &&
+    (questionIncorrectCorrect1 === true) && (questionIncorrectCorrect2 === true) && (questionIncorrectCorrect3 === true)) {
+        let currentPage = document.querySelector('.main-4');
+        let lastPage = document.querySelector('.main-3');
+        if (lastPage.style.display !== 'none') {    
+            currentPage.style.display = 'block';
+            lastPage.style.display = 'none';
+        }
+    }
+}

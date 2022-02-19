@@ -92,3 +92,17 @@
 .third-page {
     display: none;
 }
+
+.second-question-info {
+    display: none;
+}
+
+.third-question-info {
+    display: none;
+}
+
+/* --------------------------- Fourth Page --------------------------- */
+
+.fourth-page {
+    display: none;
+}
