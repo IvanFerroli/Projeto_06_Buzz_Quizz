@@ -4,6 +4,7 @@
 let indexAnswer = 0;
 let indexScroll = 0;
 let userAnswers = [];
+let chosenQuiz;
 let quizCreatedTitle1, quizCreatedURL1, quizCreatedNumberOfQuestions1, quizCreatedNumOfLevels1 = null;
 let quizCreatedTitle2, quizCreatedURL2, quizCreatedNumberOfQuestions2, quizCreatedNumOfLevels2 = null;
 let quizCreatedTitle3, quizCreatedURL3, quizCreatedNumberOfQuestions3, quizCreatedNumOfLevels3 = null;
@@ -43,7 +44,9 @@ function loadQuiz(){
 }
 
 function renderSingleQuiz(object){
+    chosenQuiz = object.id;
     const request = axios.get(`https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes/${object.id}`);
+    let rowIndexer = 0;
     request.then((response) => {
         const main = document.querySelector('.main');
         const questions = response.data.questions;
@@ -57,10 +60,12 @@ function renderSingleQuiz(object){
         for(let i in questions){
             main.innerHTML += `<div class='subcontainer-question'>
                 <div class='quiz-question'><p>${questions[i].title}</p></div>
-                <div class='container-answers'>
-                    <div class='answers-row'>${renderSingleAnswer(questions[i], object)}</div>
+                <div class='container-answers container-question-${i}'>
+                    <div class='answers-row' id='row-${rowIndexer}'>
+                    ${renderSingleAnswer(questions[i], object, ++rowIndexer)}</div>
                 </div></div>`;
             document.querySelectorAll('.quiz-question')[i].style.background = questions[i].color;
+            rowIndexer++;
         }
         main.innerHTML += `</div>`;
     }).catch((error) => {
@@ -69,6 +74,7 @@ function renderSingleQuiz(object){
 }
 
 function isCorrect(object, id){
+    const container = object.parentNode.parentNode;
     const answer = document.querySelector(`#${object.id} > .title-answer`).innerHTML;
     const request = axios.get(`https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes/${id}`);
     request.then((response) => {
@@ -86,8 +92,8 @@ function isCorrect(object, id){
                                 selector.scrollIntoView();
                             }
                         }, 2000);
-                        removeClickEvent(object.parentNode);
-                        correctAnswer(object.parentNode, object);
+                        removeClickEvent(container);
+                        correctAnswer(container, object);
                     }else{
                         setTimeout(() => {
                             const selector = document.querySelector(`#answer-${indexScroll}`);
@@ -95,14 +101,13 @@ function isCorrect(object, id){
                                 selector.scrollIntoView();
                             }
                         }, 2000);
-                        removeClickEvent(object.parentNode);
-                        wrongAnswers(object.parentNode, answers[i], object.id);
+                        removeClickEvent(container);
+                        wrongAnswers(answers[i], object.id, container);
                     }
                     userAnswers.push(answers[i][j].isCorrectAnswer);
                 }
             }
         }
-        console.log(userAnswers);
         if(userAnswers.length === questions.length){
             console.log('teste');
             endQuiz(userAnswers, questions.length, levels);
@@ -120,13 +125,13 @@ function getAnswers(questionAnswers){
     return answers;
 }
 
-function renderSingleAnswer(question, object){
+function renderSingleAnswer(question, object, rowIndexer){
     let renderSingle = '';
     for(let j in question.answers){
         let aux = parseInt(j);
         if((question.answers.length%2 === 0) && (question.answers.length > 2)){
             if(aux === (question.answers.length/2)){
-                renderSingle += `</div><div class='answers-row'>`;
+                renderSingle += `</div><div class='answers-row' id='row-${rowIndexer}'>`;
             }
         }
         renderSingle += `
@@ -150,40 +155,56 @@ function auxRenderSingleAnswer(renderSingle){
     }
 }
 
-function removeClickEvent(parentObject){
-    const children = parentObject.children;
-    for(let i = 0; i < children.length; i++){
-        children[i].removeAttribute('onclick');
+function removeClickEvent(container){
+    const childrenRows = container.children;
+    const elements = selectElements(childrenRows);
+    for(let i = 0; i < elements.length; i++){
+        elements[i].removeAttribute('onclick');
     }
 }
 
-function correctAnswer(parentObject, object){
-    const children = parentObject.children;
-    for(let i = 0; i < children.length; i++){
-        if(children[i].id !== object.id){
-            children[i].classList.add('wrong-answer');
+function selectElements(childrenRows){
+    let elements = [];
+    let auxElements;
+    for(let i = 0; i < childrenRows.length; i++){
+        auxElements = document.querySelector(`#${childrenRows[i].id}`);
+        for(let j = 0; j < auxElements.children.length; j++){
+            elements.push(auxElements.children[j]);
+        }
+    }
+    return elements;
+}
+
+function correctAnswer(container, object){
+    const childrenRows = container.children;
+    const elements = selectElements(childrenRows);
+    for(let i = 0; i < elements.length; i++){
+        if(elements[i].id !== object.id){
+            elements[i].style.color = 'red';
+            elements[i].style.opacity = '0.6';
         }else{
-            object.classList.add('correct-answer');
+            object.style.color = 'green';
         }
     }
 }
 
-function wrongAnswers(parentObject, answers, objectId){
-    const children = parentObject.children;
+function wrongAnswers(answers, objectId, container){
+    const childrenRows = container.children;
+    const elements = selectElements(childrenRows);
     let answerOptions = [];
-    for(let i=0; i < children.length; i++){
-        answerOptions.push(document.querySelector(`#${children[i].id} > .title-answer`).innerHTML);
+    for(let i=0; i < elements.length; i++){
+        answerOptions.push(document.querySelector(`#${elements[i].id} > .title-answer`).innerHTML);
     }
     for(let i in answers){
-        if(children[i].id !== objectId){
-            children[i].style.opacity = '0.6';
+        if(elements[i].id !== objectId){
+            elements[i].style.opacity = '0.6';
         }
         for(let j=0; j < answerOptions.length; j++){
             if(answerOptions[j] === answers[i].text){
                 if(answers[i].isCorrectAnswer){
-                    children[j].style.color = 'green';
+                    elements[j].style.color = 'green';
                 }else{
-                    children[j].style.color = 'red';
+                    elements[j].style.color = 'red';
                 }
             }
         }
@@ -198,7 +219,8 @@ function endQuiz(optionAnswers, questionsLength, levels){
             pontuation++;
         }
     }
-    const score = (Math.ceil(pontuation/questionsLength))*100;
+    let score = (pontuation/questionsLength)*100;
+    score = score.toFixed(0);
     console.log(`pontuação: ${score}`);
     for(let i in levels){
         if(score >= levels[i].minValue){
@@ -217,7 +239,7 @@ function renderCardEndQuiz(score, userLevel){
         <div class='text-level'><p>${userLevel.text}</p></div>
     </section>
     <div class='buttons-quiz-page'>
-        <div class='reset-button'><button onclick='restartQuiz(this);' value='${2245}'>Reiniciar quiz</button></div>
+        <div class='reset-button'><button onclick='restartQuiz(this);' value='${chosenQuiz}'>Reiniciar quiz</button></div>
         <div class='back-home-button'><button onclick='backHome();'>Voltar pra Home</button></div></div>`
     document.querySelector('.text-level').scrollIntoView();
     }, 2000)    
