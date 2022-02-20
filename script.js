@@ -24,6 +24,15 @@ let questionIncorrectURL11, questionIncorrectURL12, questionIncorrectURL13 = nul
 let questionIncorrectURL21, questionIncorrectURL22, questionIncorrectURL23 = null;
 let questionIncorrectURL31, questionIncorrectURL32, questionIncorrectURL33 = null;
 let questionIncorrectCorrect1, questionIncorrectCorrect2, questionIncorrectCorrect3 = null;
+let levelTitle1, levelPercentage1, levelImageURL1, levelDescription1 = null;
+let levelTitle2, levelPercentage2, levelImageURL2, levelDescription2= null;
+let levelTitle3, levelPercentage3, levelImageURL3, levelDescription3= null;
+let levelCorrectLevelTitle1, levelCorrectPercentage1, levelCorrectURL1, levelCorrectDescription1 = null;
+let levelCorrectLevelTitle2, levelCorrectPercentage2, levelCorrectURL2, levelCorrectDescription2 = null;
+let levelCorrectLevelTitle3, levelCorrectPercentage3, levelCorrectURL3, levelCorrectDescription3 = null;
+let levelRequirement = null;
+
+
 
 function renderMain1(){
     const main = document.querySelector('.main');
@@ -68,7 +77,7 @@ function renderMain2(){
             </section>
             <section class="make-questions-button">     
                 <button type="button" class="go-make-questions" onclick="getQuizBasicInfo()">Prosseguir para criar perguntas</button>
-            </section>
+            </section> 
         </section>
     </section>`;
 }
@@ -175,8 +184,67 @@ function renderMain4(){
     const main = document.querySelector('.main');
     main.innerHTML += `
     <section class="main-4">
-        <section class="fourth-page"></section>
+        <section class="fourth-page">
+            <section class="quiz-levels-page-title">
+                <p class="fourth-page-title">Agora, decida os níveis!</p>
+            </section>
+            <section class="first-level">    
+                <div class="first-level-info">
+                    <p class="level-1">Nível 1</p>
+                    <input type="text" class="first-level-title-1" placeholder="Título do nível">
+                    <input type="text" class="first-level-percentage-1" placeholder="% de acerto mínima">
+                    <input type="text" class="first-level-image-URL-1" placeholder="URL da imagem no nível">
+                    <input type="text" class="first-level-description-1" placeholder="Descrição do nível">
+                </div>
+            </section>
+            <section class="second-level">
+                <button type ="button" class="make-second-level" onclick = "makeSecondLevel()"></button>    
+                <div class="second-level-info">
+                    <p class="level-2">Nível 2</p>
+                    <input type="text" class="second-level-title-2" placeholder="Título do nível">
+                    <input type="text" class="second-level-percentage-2" placeholder="% de acerto mínima">
+                    <input type="text" class="second-level-image-URL-2" placeholder="URL da imagem no nível">
+                    <input type="text" class="second-level-description-2" placeholder="Descrição do nível">
+                </div>
+            </section>
+            <section class="third-level">   
+                <button type ="button" class="make-third-level" onclick = "makeThirdLevel()"></button> 
+                <div class="third-level-info">
+                    <p class="level-3">Nível 3</p>
+                    <input type="text" class="third-level-title-3" placeholder="Título do nível">
+                    <input type="text" class="third-level-percentage-3" placeholder="% de acerto mínima">
+                    <input type="text" class="third-level-image-URL-3" placeholder="URL da imagem no nível">
+                    <input type="text" class="third-level-description-3" placeholder="Descrição do nível">
+                </div>
+            </section>
+            <section class="make-access-quiz-button">    
+                <button type="button" class="go-access-quiz" onclick="getLevelsInfo()">Finalizar Quizz</button>
+            </section>
+        </section>
     </section>`;
+}
+
+function renderMain5(){
+    const main = document.querySelector('.main');
+    main.innerHTML += `
+    <section class="main-5">
+        <section class="fifth-page">
+            <section class="success-quiz-page-title">
+                <p class="fifth-page-title">Seu quizz está pronto!</p>
+            </section>
+            <section class="finished-quiz-picture">
+                <div class="final-quiz-image-block">
+                    <img src="${quizCreatedURL}">
+                    <p>${quizCreatedTitle}</p>
+                </div>
+            </section>
+            <section>
+                <button type="button" class="quiz-access" onclick="quizAccess()">Acessar Quizz</button>
+                <button type="button" class="go-back-home" onclick="backHome()">Voltar pra home</button>
+            </section>
+        </section>
+    </section>
+    `;
 }
 
 function loadQuiz(){
@@ -184,6 +252,8 @@ function loadQuiz(){
     renderMain2();
     renderMain3();
     renderMain4();
+    renderMain5();
+
     document.querySelector('.show-quizzes').innerHTML = '<section class="page-body"></section>';
     const request = axios.get('https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes');
     request.then((response) => {
@@ -713,6 +783,164 @@ function getQuestionsInfo () {
         }
     }
 }
+
+// Cria os níveis do Quiz
+
+function getLevelTitle1 (levelTitle1) {
+    levelTitle1 = document,querySelector('.first-level-title-1').value;
+    if ((levelTitle1 === null) || (levelTitle1.length < 10)) {
+        alert("Por favor, insira um título de nível com pelo menos 10 caracteres.")
+        levelCorrectLevelTitle1 = false;
+    } else {
+        levelCorrectLevelTitle1 = true;
+    }
+}
+
+function getLevelPercentage1 (levelPercentage1) {
+    levelPercentage1 = document,querySelector('.first-level-percentage-1').value;
+    if ((levelPercentage1 !== null) && (isNaN(levelPercentage1)) && (levelPercentage1 >= 0) && (levelPercentage1 <= 100)) {
+        levelCorrectPercentage1 = true;
+    } else {
+        alert("Por favor, insira uma porcentagem válida, entre 0 e 100.");
+        levelCorrectPercentage1 = false;
+    }
+}
+
+function getLevelImageURL1 (levelImageURL1) {
+    levelImageURL1 = document.querySelector('.second-level-image-URL-1').value;
+    if ((levelImageURL1 !== null) &&  (levelImageURL1.startsWith("https://") || levelImageURL1.startsWith("http://"))) {
+        levelCorrectURL1 = true;
+    } else {
+        alert("Por favor, insira uma URL válida para a imagem do nível.");
+        levelCorrectURL1 = false;
+    }
+}
+
+function getLevelDescription1 (levelDescription1) {
+    levelDescription1 = document.querySelector('.first-level-description-1').value;
+    if ((levelDescription1 === null) || (levelDescription1.length < 30)) {
+        alert("Por favor, insira uma descrição para o nível, que possua pelo menos 30 caracteres.");
+        levelCorrectDescription1 = false;
+    } else {
+        levelCorrectDescription1 = true;
+    }
+}
+
+function getLevelTitle2 (levelTitle2) {
+    levelTitle2 = document,querySelector('.first-level-title-2').value;
+    if ((levelTitle2 === null) || (levelTitle2.length < 10)) {
+        alert("Por favor, insira um título de nível com pelo menos 10 caracteres.")
+        levelCorrectLevelTitle2 = false;
+    } else {
+        levelCorrectLevelTitle2 = true;
+    }
+}
+
+function getLevelPercentage2 (levelPercentage2) {
+    levelPercentage2 = document,querySelector('.first-level-percentage-2').value;
+    if ((levelPercentage2 !== null) && (isNaN(levelPercentage2)) && (levelPercentage2 >= 0) && (levelPercentage2 <= 100)) {
+        levelCorrectPercentage2 = true;
+    } else {
+        alert("Por favor, insira uma porcentagem válida, entre 0 e 100.");
+        levelCorrectPercentage2 = false;
+    }
+}
+
+function getLevelImageURL2 (levelImageURL2) {
+    levelImageURL2 = document.querySelector('.second-level-image-URL-2').value;
+    if ((levelImageURL2 !== null) &&  (levelImageURL2.startsWith("https://") || levelImageURL2.startsWith("http://"))) {
+        levelCorrectURL2 = true;
+    } else {
+        alert("Por favor, insira uma URL válida para a imagem do nível.");
+        levelCorrectURL2 = false;
+    }
+}
+
+function getLevelDescription2 (levelDescription2) {
+    levelDescription2 = document.querySelector('.first-level-description-2').value;
+    if ((levelDescription2 === null) || (levelDescription2.length < 30)) {
+        alert("Por favor, insira uma descrição para o nível, que possua pelo menos 30 caracteres.");
+        levelCorrectDescription2 = false;
+    } else {
+        levelCorrectDescription2 = true;
+    }
+}
+
+function getLevelTitle3 (levelTitle3) {
+    levelTitle3 = document,querySelector('.first-level-title-3').value;
+    if ((levelTitle3 === null) || (levelTitle3.length < 10)) {
+        alert("Por favor, insira um título de nível com pelo menos 10 caracteres.")
+        levelCorrectLevelTitle3 = false;
+    } else {
+        levelCorrectLevelTitle3 = true;
+    }
+}
+
+function getLevelPercentage3 (levelPercentage3) {
+    levelPercentage3 = document,querySelector('.first-level-percentage-3').value;
+    if ((levelPercentage3 !== null) && (isNaN(levelPercentage3)) && (levelPercentage3 >= 0) && (levelPercentage3 <= 100)) {
+        levelCorrectPercentage3 = true;
+    } else {
+        alert("Por favor, insira uma porcentagem válida, entre 0 e 100.");
+        levelCorrectPercentage3 = false;
+    }
+}
+
+function getLevelImageURL3 (levelImageURL3) {
+    levelImageURL3 = document.querySelector('.second-level-image-URL-3').value;
+    if ((levelImageURL3 !== null) &&  (levelImageURL3.startsWith("https://") || levelImageURL3.startsWith("http://"))) {
+        levelCorrectURL3 = true;
+    } else {
+        alert("Por favor, insira uma URL válida para a imagem do nível.");
+        levelCorrectURL3 = false;
+    }
+}
+
+function getLevelDescription3 (levelDescription3) {
+    levelDescription3 = document.querySelector('.first-level-description-3').value;
+    if ((levelDescription3 === null) || (levelDescription3.length < 30)) {
+        alert("Por favor, insira uma descrição para o nível, que possua pelo menos 30 caracteres.");
+        levelCorrectDescription3 = false;
+    } else {
+        levelCorrectDescription3 = true;
+    }
+}
+
+function getLevelRequirements (levelPercentage1, levelPercentage2, levelPercentage3) {
+    levelPercentage1 = document.querySelector('.first-level-percentage-1').value;
+    levelPercentage2 = document.querySelector('.second-level-percentage-2').value;
+    levelPercentage3 = document.querySelector('.third-level-percentage-3'). value;
+    if ((levelPercentage1 === 0) || (levelPercentage2 === 0) || (levelPercentage3 === 0)){
+        //postLevelPorcentage;
+        levelRequirement = true;
+    }
+}
+
+function getLevelsInfo () {
+    getLevelTitle1(), getLevelTitle2(), getLevelTitle3(), getLevelPercentage1(), getLevelPercentage2(),
+    getLevelPercentage3(), getLevelImageURL1(), getLevelImageURL2(), getLevelImageURL3(), getLevelDescription1(),
+    getLevelDescription2(), getLevelDescription3();
+
+    if ((levelCorrectLevelTitle1 === true) && (levelCorrectLevelTitle2 === true) && (levelCorrectLevelTitle3 === true) &&
+    (levelCorrectPercentage1 === true) && (levelCorrectPercentage2 === true) && (levelCorrectPercentage3 === true) &&
+    (levelCorrectURL1 === true) && (levelCorrectURL2 === true) && (levelCorrectURL3 === true) && (levelCorrectDescription1 === true) &&
+    (levelCorrectDescription2 === true) && (levelCorrectDescription3 === true) && (levelRequirement === true)){
+        let currentPage = document.querySelector('.main-5');
+        let lastPage = document.querySelector('.main-4');
+        if (lastPage.style.display !== 'none') {    
+            currentPage.style.display = 'block';
+            lastPage.style.display = 'none';
+        }
+    }
+}
+
+// Última tela, de acesso ao Quiz
+
+function quizAccess () {
+    //go to created quiz
+}
+
+
 
 /* ==caso for preciso ==
 <section class="main-1"> <!-- Seção da Primeira Página -->

@@ -1,7 +1,8 @@
 /* --------------------------- First Page --------------------------- */
 @media screen and (min-width: 1100px){
-.first-page {
-    display: block;
+    .first-page {
+        display: block;
+    }
 }
 
 .main-upper {
@@ -63,6 +64,7 @@
     text-align: center;
     color: #B9B9B9;
 }
+
 .quizzes {
     width: 90%;
     margin-top: 5%;
@@ -73,7 +75,7 @@
 .all-quizzes {
     margin-bottom: 5px;
 }
-}
+
 /* --------------------------- Second Page --------------------------- */
 
 .main-2 {
@@ -103,5 +105,11 @@
 /* --------------------------- Fourth Page --------------------------- */
 
 .fourth-page {
+    display: none;
+}
+
+/* --------------------------- Fifth Page --------------------------- */
+
+.fifth-page {
     display: none;
 }
