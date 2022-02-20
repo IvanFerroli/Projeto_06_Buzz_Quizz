@@ -25,8 +25,166 @@ let questionIncorrectURL21, questionIncorrectURL22, questionIncorrectURL23 = nul
 let questionIncorrectURL31, questionIncorrectURL32, questionIncorrectURL33 = null;
 let questionIncorrectCorrect1, questionIncorrectCorrect2, questionIncorrectCorrect3 = null;
 
+function renderMain1(){
+    const main = document.querySelector('.main');
+    main.innerHTML += `
+    <section class="main-1">
+        <section class="first-page">
+            <section class="main-upper">
+                <section class="page-upper-body">
+                    <div class="new-quiz-container"> 
+                        <div class="first-quiz-message">
+                            <p class="quiz-null">Você não criou nenhum quiz ainda :(</p>
+                            <button type="button" class="create-quiz" onclick="insertSecondPage()">Criar Quiz</button>
+                        </div>
+                    </div>
+                </section>
+            </section>
+            <section class="main-middle">
+                <div class="quizzes">
+                    <p class="all-quizzes">Todos os Quizzes</p>     
+                </div>
+                <section class="page-middle-body">  
+                    <div class="show-quizzes"></div>
+                </section>
+            </section>
+        </section>
+    </section>`;
+}
+
+function renderMain2(){
+    const main = document.querySelector('.main');
+    main.innerHTML += `
+    <section class="main-2">        
+        <section class="second-page">
+            <section class="quiz-info-page-title">   
+                <p class="second-page-title">Comece pelo começo</p>
+            </section>
+            <section class="quiz-info-list">    
+                <input type="text" class="quiz-title" placeholder="Titulo do seu quiz">
+                <input type="text" class="quiz-image-url" placeholder="URL da imagem do seu quiz">
+                <input type="text" class="quiz-number-of-questions" placeholder="Quantidade de perguntas dos seu quiz">
+                <input type="text" class="quiz-number-of-levels" placeholder="Quantidade de níveis do quiz">
+            </section>
+            <section class="make-questions-button">     
+                <button type="button" class="go-make-questions" onclick="getQuizBasicInfo()">Prosseguir para criar perguntas</button>
+            </section>
+        </section>
+    </section>`;
+}
+
+function renderMain3(){
+    const main = document.querySelector('.main');
+    main.innerHTML += `
+    <section class="main-3">    
+        <section class="third-page">
+            <section class="quiz-questions-page-title">
+                <p class="third-page-title">Crie suas perguntas</p>
+            </section>
+            <section class="first-question">    
+                <div class="first-question-info">
+                    <p class="question-1">Pergunta 1</p>
+                    <input type="text" class="first-quiz-text" placeholder="Texto da pergunta">
+                    <input type="text" class="first-question-background" placeholder="Cor de fundo da pergunta">
+                </div>
+                <div class="first-question-correct-answer">
+                    <p class="correct-answer-1">Resposta correta</p>
+                    <input type="text" class="first-quiz-correct-answer" placeholder="Resposta correta">
+                    <input type="text" class="first-quiz-image-URL" placeholder="URL da imagem">
+                </div>
+                <div class="first-quiz-incorrect-answers">
+                    <p class="incorrect-answers-1">Respostas incorretas</p>
+                    <p>
+                        <input type="text" class="first-quiz-incorrect-answer-1" placeholder="Resposta incorreta 1">
+                        <input type="text" class="first-quiz-incorrect-URL-1" placeholder="URL da imagem 1">
+                    </p>
+                    <p>
+                        <input type="text" class="first-quiz-incorrect-answer-2" placeholder="Resposta incorreta 2">
+                        <input type="text" class="first-quiz-incorrect-URL-2" placeholder="URL da imagem 2">
+                    </p>
+                    <p>
+                        <input type="text" class="first-quiz-incorrect-answer-3" placeholder="Resposta incorreta 3">
+                        <input type="text" class="first-quiz-incorrect-URL-3" placeholder="URL da imagem 3">
+                    </p>
+                </div>
+            </section>
+            <section class="second-question">  
+                <button type ="button" class="make-second-question" onclick = "makeSecondQuestion()"></button>
+                <div class="second-question-info">
+                    <p class="question-2">Pergunta 2</p>
+                    <input type="text" class="second-quiz-text" placeholder="Texto da pergunta">
+                    <input type="text" class="second-question-background" placeholder="Cor de fundo da pergunta">
+                </div>
+                <div class="second-question-correct-answer">
+                    <p class="correct-answer-2">Resposta correta</p>
+                    <input type="text" class="second-quiz-correct-answer" placeholder="Resposta correta">
+                    <input type="text" class="second-quiz-image-URL" placeholder="URL da imagem">
+                </div>
+                <div class="second-quiz-incorrect-answers">
+                    <p class="incorrect-answers-2">Respostas incorretas</p>
+                    <p>
+                        <input type="text" class="second-quiz-incorrect-answer-1" placeholder="Resposta incorreta 1">
+                        <input type="text" class="second-quiz-incorrect-URL-1" placeholder="URL da imagem 1">
+                    </p>
+                    <p>
+                        <input type="text" class="second-quiz-incorrect-answer-2" placeholder="Resposta incorreta 2">
+                        <input type="text" class="second-quiz-incorrect-URL-2" placeholder="URL da imagem 2">
+                    </p>
+                    <p>
+                        <input type="text" class="second-quiz-incorrect-answer-3" placeholder="Resposta incorreta 3">
+                        <input type="text" class="second-quiz-incorrect-URL-3" placeholder="URL da imagem 3">
+                    </p>
+                </div>
+            </section>
+            <section class="third-question">       
+                <button type ="button" class="make-third-question" onclick = "makeThirdQuestion()"></button>
+                <div class="third-question-info">
+                    <p class="question-3">Pergunta 3</p>
+                    <input type="text" class="third-quiz-text" placeholder="Texto da pergunta">
+                    <input type="text" class="third-question-background" placeholder="Cor de fundo da pergunta">
+                </div>
+                <div class="third-question-correct-answer">
+                    <p class="correct-answer-3">Resposta correta</p>
+                    <input type="text" class="third-quiz-correct-answer" placeholder="Resposta correta">
+                    <input type="text" class="third-quiz-image-URL" placeholder="URL da imagem">
+                </div>
+                <div class="third-quiz-incorrect-answers">
+                    <p class="incorrect-answers-3">Respostas incorretas</p>
+                    <p>
+                        <input type="text" class="third-quiz-incorrect-answer-1" placeholder="Resposta incorreta 1">
+                        <input type="text" class="third-quiz-incorrect-URL-1" placeholder="URL da imagem 1">
+                    </p>
+                    <p>
+                        <input type="text" class="third-quiz-incorrect-answer-2" placeholder="Resposta incorreta 2">
+                        <input type="text" class="third-quiz-incorrect-URL-2" placeholder="URL da imagem 2">
+                    </p>
+                    <p>
+                        <input type="text" class="third-quiz-incorrect-answer-3" placeholder="Resposta incorreta 3">
+                        <input type="text" class="third-quiz-incorrect-URL-3" placeholder="URL da imagem 3">
+                    </p>
+                </div>
+            </section>
+            <section class="make-levels-button">    
+                <button type="button" class="go-make-levels" onclick="getQuestionsInfo()">Prosseguir pra criar níveis</button>
+            </section>
+        </section>
+    </section>`;
+}
+
+function renderMain4(){
+    const main = document.querySelector('.main');
+    main.innerHTML += `
+    <section class="main-4">
+        <section class="fourth-page"></section>
+    </section>`;
+}
+
 function loadQuiz(){
-    document.querySelector('.main').innerHTML = '<section class="page-body"></section>';
+    renderMain1();
+    renderMain2();
+    renderMain3();
+    renderMain4();
+    document.querySelector('.show-quizzes').innerHTML = '<section class="page-body"></section>';
     const request = axios.get('https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes');
     request.then((response) => {
         const quizes = document.querySelector('.page-body');
@@ -75,12 +233,13 @@ function renderSingleQuiz(object){
 
 function isCorrect(object, id){
     const container = object.parentNode.parentNode;
-    const answer = document.querySelector(`#${object.id} > .title-answer`).innerHTML;
+    let answer = document.querySelector(`#${object.id} > .title-answer`).innerHTML;
     const request = axios.get(`https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes/${id}`);
     request.then((response) => {
         const questions = response.data.questions;
         const levels = response.data.levels;
         const answers = getAnswers(questions);
+        console.log(answers);
         for(let i in answers){
             for(let j in answers[i]){
                 if(answer === answers[i][j].text){
@@ -105,9 +264,11 @@ function isCorrect(object, id){
                         wrongAnswers(answers[i], object.id, container);
                     }
                     userAnswers.push(answers[i][j].isCorrectAnswer);
+                    answer = '';
                 }
             }
         }
+        console.log(userAnswers);
         if(userAnswers.length === questions.length){
             console.log('teste');
             endQuiz(userAnswers, questions.length, levels);
@@ -552,3 +713,143 @@ function getQuestionsInfo () {
         }
     }
 }
+
+/* ==caso for preciso ==
+<section class="main-1"> <!-- Seção da Primeira Página -->
+            <section class="first-page">
+                <section class="main-upper">
+                    <section class="page-upper-body">
+                        <div class="new-quiz-container">    <!-- Seção de Novo Quiz, Quando Usuário Ainda Não Possui Nenhum -->
+                            <div class="first-quiz-message">
+                                <p class="quiz-null">Você não criou nenhum quiz ainda :(</p>
+                                <button type="button" class="create-quiz" onclick="insertSecondPage()">Criar Quiz</button>  <!-- Botão que leva para Criação 
+                                de Quiz (Info Básicas) -->
+                            </div>
+                        </div>
+                    </section>
+                </section>
+                <section class="main-middle">
+                    <div class="quizzes">
+                        <p class="all-quizzes">Todos os Quizzes</p>     
+                    </div>
+                    <section class="page-middle-body">  <!-- Seção Onde Devem Ser Apresentados Os Quizzes do Servidor -->
+                        <div class="show-quizzes"></div>
+                    </section>
+                </section>
+            </section>
+        </section>      <!-- Fim da Primeira Página -->
+        <section class="main-2">        <!-- Seção da Segunda Página (Info Básicas do Quiz)-->
+            <section class="second-page">
+                <section class="quiz-info-page-title">   <!-- Seção do corpo da Criação de Quiz (Info Básicas) -->
+                    <p class="second-page-title">Comece pelo começo</p>
+                </section>
+                <section class="quiz-info-list">    <!-- Inputs para Criação do Quiz (Info Básicas) -->
+                    <input type="text" class="quiz-title" placeholder="Titulo do seu quiz">
+                    <input type="text" class="quiz-image-url" placeholder="URL da imagem do seu quiz">
+                    <input type="text" class="quiz-number-of-questions" placeholder="Quantidade de perguntas dos seu quiz">
+                    <input type="text" class="quiz-number-of-levels" placeholder="Quantidade de níveis do quiz">
+                </section>
+                <section class="make-questions-button">     <!-- Botão que Adquire os dados dos Inputs, e Pula pra Próxima Página -->
+                    <button type="button" class="go-make-questions" onclick="getQuizBasicInfo()">Prosseguir para criar perguntas</button>
+                </section>
+            </section>
+        </section>      <!-- Fim da Segunda Página (Info Básicas do Quiz) -->
+        <section class="main-3">    <!-- Seção da Terceira Página (Perguntas do Quiz) -->
+            <section class="third-page">
+                <section class="quiz-questions-page-title">
+                    <p class="third-page-title">Crie suas perguntas</p>
+                </section>
+                <section class="first-question">    <!-- Seção da Primeira Pergunta -->
+                    <div class="first-question-info">
+                        <p class="question-1">Pergunta 1</p>
+                        <input type="text" class="first-quiz-text" placeholder="Texto da pergunta">
+                        <input type="text" class="first-question-background" placeholder="Cor de fundo da pergunta">
+                    </div>
+                    <div class="first-question-correct-answer">
+                        <p class="correct-answer-1">Resposta correta</p>
+                        <input type="text" class="first-quiz-correct-answer" placeholder="Resposta correta">
+                        <input type="text" class="first-quiz-image-URL" placeholder="URL da imagem">
+                    </div>
+                    <div class="first-quiz-incorrect-answers">
+                        <p class="incorrect-answers-1">Respostas incorretas</p>
+                        <p>
+                            <input type="text" class="first-quiz-incorrect-answer-1" placeholder="Resposta incorreta 1">
+                            <input type="text" class="first-quiz-incorrect-URL-1" placeholder="URL da imagem 1">
+                        </p>
+                        <p>
+                            <input type="text" class="first-quiz-incorrect-answer-2" placeholder="Resposta incorreta 2">
+                            <input type="text" class="first-quiz-incorrect-URL-2" placeholder="URL da imagem 2">
+                        </p>
+                        <p>
+                            <input type="text" class="first-quiz-incorrect-answer-3" placeholder="Resposta incorreta 3">
+                            <input type="text" class="first-quiz-incorrect-URL-3" placeholder="URL da imagem 3">
+                        </p>
+                    </div>
+                </section>
+                <section class="second-question">   <!-- Botão Que Abre a Seção para Criação da Segunda Pergunta -->
+                    <button type ="button" class="make-second-question" onclick = "makeSecondQuestion()"></button>
+                    <div class="second-question-info">
+                        <p class="question-2">Pergunta 2</p>
+                        <input type="text" class="second-quiz-text" placeholder="Texto da pergunta">
+                        <input type="text" class="second-question-background" placeholder="Cor de fundo da pergunta">
+                    </div>
+                    <div class="second-question-correct-answer">
+                        <p class="correct-answer-2">Resposta correta</p>
+                        <input type="text" class="second-quiz-correct-answer" placeholder="Resposta correta">
+                        <input type="text" class="second-quiz-image-URL" placeholder="URL da imagem">
+                    </div>
+                    <div class="second-quiz-incorrect-answers">
+                        <p class="incorrect-answers-2">Respostas incorretas</p>
+                        <p>
+                            <input type="text" class="second-quiz-incorrect-answer-1" placeholder="Resposta incorreta 1">
+                            <input type="text" class="second-quiz-incorrect-URL-1" placeholder="URL da imagem 1">
+                        </p>
+                        <p>
+                            <input type="text" class="second-quiz-incorrect-answer-2" placeholder="Resposta incorreta 2">
+                            <input type="text" class="second-quiz-incorrect-URL-2" placeholder="URL da imagem 2">
+                        </p>
+                        <p>
+                            <input type="text" class="second-quiz-incorrect-answer-3" placeholder="Resposta incorreta 3">
+                            <input type="text" class="second-quiz-incorrect-URL-3" placeholder="URL da imagem 3">
+                        </p>
+                    </div>
+                </section>
+                <section class="third-question">       <!-- Botão Que Abre a Seção para Criação da Terceira Pergunta -->
+                    <button type ="button" class="make-third-question" onclick = "makeThirdQuestion()"></button>
+                    <div class="third-question-info">
+                        <p class="question-3">Pergunta 3</p>
+                        <input type="text" class="third-quiz-text" placeholder="Texto da pergunta">
+                        <input type="text" class="third-question-background" placeholder="Cor de fundo da pergunta">
+                    </div>
+                    <div class="third-question-correct-answer">
+                        <p class="correct-answer-3">Resposta correta</p>
+                        <input type="text" class="third-quiz-correct-answer" placeholder="Resposta correta">
+                        <input type="text" class="third-quiz-image-URL" placeholder="URL da imagem">
+                    </div>
+                    <div class="third-quiz-incorrect-answers">
+                        <p class="incorrect-answers-3">Respostas incorretas</p>
+                        <p>
+                            <input type="text" class="third-quiz-incorrect-answer-1" placeholder="Resposta incorreta 1">
+                            <input type="text" class="third-quiz-incorrect-URL-1" placeholder="URL da imagem 1">
+                        </p>
+                        <p>
+                            <input type="text" class="third-quiz-incorrect-answer-2" placeholder="Resposta incorreta 2">
+                            <input type="text" class="third-quiz-incorrect-URL-2" placeholder="URL da imagem 2">
+                        </p>
+                        <p>
+                            <input type="text" class="third-quiz-incorrect-answer-3" placeholder="Resposta incorreta 3">
+                            <input type="text" class="third-quiz-incorrect-URL-3" placeholder="URL da imagem 3">
+                        </p>
+                    </div>
+                </section>
+                <section class="make-levels-button">    <!-- Botão que Obtém os Dados Das Perguntas Criadas, e Vai Para a Próxima Página -->
+                    <button type="button" class="go-make-levels" onclick="getQuestionsInfo()">Prosseguir pra criar níveis</button>
+                </section>
+            </section>
+        </section>      <!-- Fim da Terceira Página (Perguntas do Quiz) -->
+        <section class="main-4">
+            <section class="fourth-page">
+
+            </section>
+        </section>
+*/
