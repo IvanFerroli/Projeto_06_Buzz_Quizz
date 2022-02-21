@@ -9,55 +9,18 @@
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="header.css">
     <link rel="stylesheet" href="main.css">
+    <link rel='stylesheet' href='mobile.css'>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
 </head>
-<body>
+<body onload='loadQuiz();'>
 
-    <header>
-        <section class="head-container">
-            <p class="app-title">BuzzQuiz</p>
-        </section>
+    <header>       <!-- Seção da Barra Superior "BuzzQuiz" -->
+        <p class="app-title">BuzzQuiz</p>
     </header>
-
-    <main>
-        <section class="first-page">
-            <section class="main-upper">
-                <section class="page-upper-body">
-                    <div class="new-quiz-container">
-                        <div class="first-quiz-message">
-                            <p class="quiz-null">Você não criou nenhum quiz ainda :(</p>
-                            <button type="button" class="create-quiz" onclick="insertSecondPage()">Criar Quiz</button>
-                        </div>
-                    </div>
-                </section>
-            </section>
-            <section class="main-middle">
-                <section class="page-middle-body">
-                    <div class="quizzes">
-                        <p class="all-quizzes">Todos os Quizzes</p>
-                    </div>
-                    <div class="show-quizzes"></div>
-                </section>
-            </section>
-        </section>
-        <section class="second-page">
-            <section class="quiz-page-title">
-                <p>Comece pelo começo</p>
-            </section>
-            <section class="quiz-info-list">
-                <input type="text" class="quiz-title" placeholder="Titulo do seu quiz">
-                <input type="text" class="quiz-image-url" placeholder="URL da imagem do seu quiz">
-                <input type="text" class="quiz-number-of-questions" placeholder="Quantidade de perguntas dos seu quiz">
-                <input type="text" class="quiz-number-of-levels" placeholder="Quantidade de níveis do quiz">
-            </section>
-            <section class="make-questions-button">
-                <button type="button" class="go-make-questions" onclick="createFirstQuiz()">Prosseguir para criar perguntas</button>
-            </section>
-        </section>
-    </main>
-    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <main class='app'></main>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script src="script.js"></script>
 </body>
 </html>
