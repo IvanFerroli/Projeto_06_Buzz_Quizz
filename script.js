@@ -41,7 +41,74 @@ let postQuizLPercentage1, postQuizLPercentage2, postQuizLPercentage3 = null;
 let postQuizLIURL1, postQuizLIURL2, postQuizLIURL3 = null;
 let postQuizLDescription1, postQuizLDescription2, postQuizLDescription3 = null;
 let createdQuiz = null;
-const createdQuiz = new Object();
+const createdQuiz = {
+    title: postQuizTitle,
+    image: postQuizURL,
+    questions: [
+        {
+            title: postQuizText1,
+            color: postQuizBG1,
+            answers: [
+                {
+                    text: postQuizCA1,
+                    image: postQuizQIURL1,
+                    isCorrectAnswer: true
+                },
+                {
+                    text: postQuizIncText11,
+                    image: postQuizIncURL11,
+                    isCorrectAnswer: false
+                }
+            ]
+        },
+        {
+            title: postQuizText2,
+            color: postQuizBG2,
+            answers: [
+                {
+                    text: postQuizCA2,
+                    image: postQuizQIURL2,
+                    isCorrectAnswer: true
+                },
+                {
+                    text: postQuizIncText21,
+                    image: postQuizIncURL21,
+                    isCorrectAnswer: false
+                }
+            ]
+        },
+        {
+            title: postQuizText3,
+            color: postQuizBG2,
+            answers: [
+                {
+                    text: postQuizCA3,
+                    image: postQuizQIURL3,
+                    isCorrectAnswer: true
+                },
+                {
+                    text: postQuizIncText31,
+                    image: postQuizIncURL31,
+                    isCorrectAnswer: false
+                }
+            ]
+        }
+    ],
+    levels: [
+        {
+            title: postQuizLTitle1,
+            image: postQuizLIURL1,
+            text: postQuizLDescription1,
+            minValue: postQuizLPercentage1
+        },
+        {
+            title: postQuizLTitle2,
+            image: postQuizLIURL2,
+            text: postQuizLDescription2,
+            minValue: postQuizLPercentage2
+        }
+    ]
+};
 
 function renderMain1(){
     const main = document.querySelector('.main');
@@ -984,8 +1051,8 @@ function getLevelsInfo () {
 
 // Envio do Quiz para a API(servidor)
 
-function quizUpload () {
-    console.log(createdQuiz);
+function quizUpload (createdQuiz) {
+    const sendQuiz = axios.post("https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes", createdQuiz);
 }
 
 // Última tela, de acesso ao Quiz
