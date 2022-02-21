@@ -198,4 +198,40 @@
     .reset-button > button{
         background-color: #EC362D;
     }
+    /* --------------------------- Second Page --------------------------- */
+
+.main-2 {
+    display: none;
+}
+.second-page{
+    margin-top: 300px;
+    display: flex;
+    justify-content: center;
+}
+
+/* --------------------------- Third Page --------------------------- */
+
+.third-page {
+    display: none;
+}
+
+.second-question-info {
+    display: none;
+}
+
+.third-question-info {
+    display: none;
+}
+
+/* --------------------------- Fourth Page --------------------------- */
+
+.fourth-page {
+    display: none;
+}
+
+/* --------------------------- Fifth Page --------------------------- */
+
+.fifth-page {
+    display: none;
+}
 }
