@@ -43,7 +43,7 @@ let postQuizLPercentage1, postQuizLPercentage2, postQuizLPercentage3 = null;
 let postQuizLIURL1, postQuizLIURL2, postQuizLIURL3 = null;
 let postQuizLDescription1, postQuizLDescription2, postQuizLDescription3 = null;
 let createdQuiz = null;
-
+const createdQuiz = new Object();
 
 function renderMain1(){
     const main = document.querySelector('.main');
@@ -102,7 +102,7 @@ function renderMain3(){
                 <p class="third-page-title">Crie suas perguntas</p>
             </section>
             <section class="first-question">    
-                <div class="first-question-info">
+                <div class="first-question-info" data-identifier="question">
                     <p class="question-1">Pergunta 1</p>
                     <input type="text" class="first-quiz-text" placeholder="Texto da pergunta">
                     <input type="text" class="first-question-background" placeholder="Cor de fundo da pergunta">
@@ -128,8 +128,8 @@ function renderMain3(){
                     </p>
                 </div>
             </section>
-            <section class="second-question">  
-                <button type ="button" class="make-second-question" onclick = "makeSecondQuestion()"></button>
+            <section class="second-question" data-identifier="question">  
+                <button type ="button" class="make-second-question" onclick = "makeSecondQuestion()" data-identifier="expand"></button>
                 <div class="second-question-info">
                     <p class="question-2">Pergunta 2</p>
                     <input type="text" class="second-quiz-text" placeholder="Texto da pergunta">
@@ -157,7 +157,7 @@ function renderMain3(){
                 </div>
             </section>
             <section class="third-question">       
-                <button type ="button" class="make-third-question" onclick = "makeThirdQuestion()"></button>
+                <button type ="button" class="make-third-question" onclick = "makeThirdQuestion()" data-identifier="expand"></button>
                 <div class="third-question-info">
                     <p class="question-3">Pergunta 3</p>
                     <input type="text" class="third-quiz-text" placeholder="Texto da pergunta">
@@ -200,7 +200,7 @@ function renderMain4(){
                 <p class="fourth-page-title">Agora, decida os níveis!</p>
             </section>
             <section class="first-level">    
-                <div class="first-level-info">
+                <div class="first-level-info" data-identifier="level">
                     <p class="level-1">Nível 1</p>
                     <input type="text" class="first-level-title-1" placeholder="Título do nível">
                     <input type="text" class="first-level-percentage-1" placeholder="% de acerto mínima">
@@ -209,8 +209,8 @@ function renderMain4(){
                 </div>
             </section>
             <section class="second-level">
-                <button type ="button" class="make-second-level" onclick = "makeSecondLevel()"></button>    
-                <div class="second-level-info">
+                <button type ="button" class="make-second-level" onclick = "makeSecondLevel()" data-identifier="expand"></button>    
+                <div class="second-level-info" data-identifier="level">
                     <p class="level-2">Nível 2</p>
                     <input type="text" class="second-level-title-2" placeholder="Título do nível">
                     <input type="text" class="second-level-percentage-2" placeholder="% de acerto mínima">
@@ -219,8 +219,8 @@ function renderMain4(){
                 </div>
             </section>
             <section class="third-level">   
-                <button type ="button" class="make-third-level" onclick = "makeThirdLevel()"></button> 
-                <div class="third-level-info">
+                <button type ="button" class="make-third-level" onclick = "makeThirdLevel()" data-identifier="expand"></button> 
+                <div class="third-level-info" data-identifier="level">
                     <p class="level-3">Nível 3</p>
                     <input type="text" class="third-level-title-3" placeholder="Título do nível">
                     <input type="text" class="third-level-percentage-3" placeholder="% de acerto mínima">
