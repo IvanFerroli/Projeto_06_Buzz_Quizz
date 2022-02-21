@@ -33,6 +33,7 @@ height: 181px;
   margin-bottom: 20px;
   
   background-color: blue;
+
 }
 
 .first-quiz-message .quiz-null {
@@ -254,5 +255,11 @@ height: 181px;
 /* --------------------------- Fourth Page --------------------------- */
 
 .fourth-page {
+    display: none;
+}
+
+/* --------------------------- Fifth Page --------------------------- */
+
+.fifth-page {
     display: none;
 }
